@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './pages/store_page.dart';
+import './screens/home.dart'; // ✅ 내정보 페이지 import 추가
 
 void main() {
   runApp(const MyApp());
@@ -25,7 +26,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 2; // 현재 선택된 탭 인덱스
+  int _selectedIndex = 2;
   final List<String> _menuNames = ['홈', '리뷰', '내주변', '찜', '내정보'];
 
   final List<String> _filterButtons = [
@@ -170,6 +171,8 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ],
               )
+            : _selectedIndex == 4
+            ? const MyHomePage() // ✅ 내정보 탭 클릭 시 이동
             : Center(
                 child: Text(
                   _menuNames[_selectedIndex],
@@ -363,8 +366,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              const StorePage(), // ← 값 전달 없이 호출
+                          builder: (context) => const StorePage(),
                         ),
                       );
                     },
