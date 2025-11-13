@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './pages/store_page.dart';
-import './screens/home.dart'; // ✅ 내정보 페이지 import 추가
+import './pages/store_dashboard_page.dart'; // ✅ 사장님보드 페이지 import
+import './screens/home.dart'; // ✅ 내정보 페이지
 
 void main() {
   runApp(const MyApp());
@@ -27,7 +28,9 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 2;
-  final List<String> _menuNames = ['홈', '리뷰', '내주변', '찜', '내정보'];
+
+  // ✅ 메뉴명 6개로 확장
+  final List<String> _menuNames = ['홈', '리뷰', '내주변', '찜', '내정보', '사장님'];
 
   final List<String> _filterButtons = [
     '민생소비쿠폰',
@@ -172,7 +175,9 @@ class _MainScreenState extends State<MainScreen> {
                 ],
               )
             : _selectedIndex == 4
-            ? const MyHomePage() // ✅ 내정보 탭 클릭 시 이동
+            ? const MyHomePage() // 내정보
+            : _selectedIndex == 5
+            ? const StoreDashboardPage() // ✅ 사장님보드 탭
             : Center(
                 child: Text(
                   _menuNames[_selectedIndex],
@@ -193,13 +198,17 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.location_on), label: '내주변'),
           BottomNavigationBarItem(icon: Icon(Icons.favorite), label: '찜'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: '내정보'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.store),
+            label: '사장님',
+          ), // ✅ 추가된 탭
         ],
       ),
     );
   }
 }
 
-// 검색 화면
+// 검색 화면 (생략 없이 포함됨)
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
 
