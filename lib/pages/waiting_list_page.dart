@@ -50,9 +50,77 @@ class WaitingListPage extends StatelessWidget {
 
 // ✅ 대기 탭
 class WaitingTab extends StatelessWidget {
+  const WaitingTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> waitingList = [
+      {
+        'number': 922,
+        'time': '17:32',
+        'name': '김길동',
+        'phone': '01012345678',
+        'adults': 2,
+        'position': 1,
+        'menus': ['클래식치즈버거 2개', '아보카도버거 1개'],
+        'note': '예약 좌석',
+      },
+      {
+        'number': 923,
+        'time': '17:35',
+        'name': '이둘링',
+        'phone': '01012345678',
+        'adults': 2,
+        'position': 2,
+        'menus': ['하와이안버거 1개', '아보카도버거 1개'],
+        'note': '분할 결제',
+      },
+      {
+        'number': 924,
+        'time': '17:40',
+        'name': '박둘링',
+        'phone': '01012345678',
+        'adults': 2,
+        'position': 3,
+        'menus': [],
+        'note': '',
+      },
+    ];
+
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        // 필터
+        Wrap(
+          spacing: 8,
+          children: const [
+            FilterChip(label: Text('홀 (12)'), selected: true, onSelected: null),
+            FilterChip(
+              label: Text('테라스 (32)'),
+              selected: false,
+              onSelected: null,
+            ),
+            FilterChip(
+              label: Text('포장 (0)'),
+              selected: false,
+              onSelected: null,
+            ),
+            FilterChip(label: Text('빈 자리'), selected: false, onSelected: null),
+          ],
+        ),
+        const SizedBox(height: 16),
+
+        // 웨이팅 카드 리스트
+        ...waitingList.map((item) => WaitingCard(data: item)).toList(),
+      ],
+    );
+  }
+}
+
+class WaitingCard extends StatelessWidget {
   final Map<String, dynamic> data;
 
-  const WaitingTab({super.key, required this.data});
+  const WaitingCard({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +177,7 @@ class WaitingTab extends StatelessWidget {
 
             const SizedBox(height: 12),
 
-            // 버튼들
+            // 버튼 3개
             Row(
               children: [
                 Expanded(
@@ -147,7 +215,7 @@ class WaitingTab extends StatelessWidget {
               ],
             ),
 
-            // 메모
+            // 메모 박스
             if (data['note'] != '') ...[
               const SizedBox(height: 12),
               Container(
